@@ -16,6 +16,7 @@ export class MyWebComponent extends LitElement {
 
   __increment() {
     this.counter += 1;
+    this.fireCustomEvent();
   }
 
   render() {
@@ -23,5 +24,14 @@ export class MyWebComponent extends LitElement {
       <h2>${this.title} Nr. ${this.counter}!</h2>
       <button @click=${this.__increment}>increment</button>
     `;
+  }
+
+  private fireCustomEvent() {
+    let event = new CustomEvent('counter-increase', {
+      detail: {
+        message: `Counter value is: ${this.counter}`,
+      }
+    });
+    this.dispatchEvent(event);
   }
 }
